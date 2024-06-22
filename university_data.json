@@ -1,0 +1,83 @@
+{
+    "categories": [
+      {
+        "name": "Admissions",
+        "entries": [
+          {
+            "question": "What are the admission requirements for undergraduate programs?",
+            "answer": "The admission requirements for undergraduate programs include a high school diploma, a minimum GPA of 2.5, and standardized test scores such as the SAT or ACT."
+          },
+          {
+            "question": "How can I apply for admission?",
+            "answer": "You can apply for admission through our online application portal. Be sure to submit all required documents, including transcripts and test scores."
+          }
+        ]
+      },
+      {
+        "name": "Academics",
+        "entries": [
+          {
+            "question": "What majors are offered?",
+            "answer": "We offer a wide range of majors including Computer Science, Business Administration, Psychology, Engineering, and more."
+          },
+          {
+            "question": "How can I declare or change my major?",
+            "answer": "To declare or change your major, you need to meet with an academic advisor and submit a change of major form through the registrar's office."
+          }
+        ]
+      },
+      {
+        "name": "Tuition and Fees",
+        "entries": [
+          {
+            "question": "What is the tuition for in-state students?",
+            "answer": "The tuition for in-state students is $10,000 per year."
+          },
+          {
+            "question": "Are there scholarships available?",
+            "answer": "Yes, we offer a variety of scholarships based on academic merit, financial need, and extracurricular involvement."
+          }
+        ]
+      },
+      {
+        "name": "Campus Life",
+        "entries": [
+          {
+            "question": "What housing options are available?",
+            "answer": "We offer several housing options including dormitories, on-campus apartments, and family housing."
+          },
+          {
+            "question": "What dining options are available on campus?",
+            "answer": "There are multiple dining halls, cafes, and food courts on campus that offer a variety of meal options."
+          }
+        ]
+      },
+      {
+        "name": "Library",
+        "entries": [
+          {
+            "question": "What are the library's opening hours?",
+            "answer": "The library is open from 8 AM to 10 PM on weekdays, and from 10 AM to 6 PM on weekends."
+          },
+          {
+            "question": "How can I access online resources?",
+            "answer": "You can access online resources through the library's website using your university login credentials."
+          }
+        ]
+      },
+      {
+        "name": "Extracurricular Activities",
+        "entries": [
+          {
+            "question": "What clubs and organizations are available?",
+            "answer": "We have over 100 clubs and organizations, including academic clubs, sports teams, and special interest groups."
+          },
+          {
+            "question": "How can I join a student organization?",
+            "answer": "You can join a student organization by attending club meetings and events, and signing up through the student activities office."
+          }
+        ]
+      }
+    ]
+  }
+  

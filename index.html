@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        #chatbox {
+            width: 400px;
+            margin: 0 auto;
+            margin-top: 50px;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+        #chatbox input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 10px 0;
+        }
+        #chatbox button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+        }
+        #chatbox .messages {
+            margin-bottom: 10px;
+        }
+        #chatbox .messages .message {
+            margin-bottom: 10px;
+        }
+        #chatbox .messages .message.user {
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <div id="chatbox">
+        <div class="messages" id="messages"></div>
+        <input type="text" id="userInput" placeholder="Ask me anything...">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+
+    <script>
+        async function sendMessage() {
+            const userInput = document.getElementById('userInput').value;
+            if (userInput.trim() === "") return;
+            
+            const messagesDiv = document.getElementById('messages');
+            const userMessageDiv = document.createElement('div');
+            userMessageDiv.classList.add('message', 'user');
+            userMessageDiv.textContent = userInput;
+            messagesDiv.appendChild(userMessageDiv);
+            
+            document.getElementById('userInput').value = '';
+
+            const response = await fetch('http://localhost:8000/query', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ text: userInput })
+            });
+
+            const data = await response.json();
+            const botMessageDiv = document.createElement('div');
+            botMessageDiv.classList.add('message', 'bot');
+            botMessageDiv.textContent = data.response;
+            messagesDiv.appendChild(botMessageDiv);
+        }
+    </script>
+</body>
+</html>
