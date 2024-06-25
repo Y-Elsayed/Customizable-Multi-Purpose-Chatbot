@@ -1,0 +1,1 @@
+ - Idea 1 : I may use a model that evaluates if the output is appropriate or not before displaying it to the user.

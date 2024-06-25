@@ -3,7 +3,7 @@ from sentence_transformers import SentenceTransformer, util
 from pydantic import BaseModel
 from spacy.lang.en import English
 import torch
-
+import numpy as np
 
 
 class Query(BaseModel):
@@ -16,7 +16,7 @@ class DataProcessing:
     _nlp : English
     _data : json
     _data_embeddings : list
-    
+    __device : str
     #_______________________________________________________________________________________________#
     
     #The Constructor
@@ -25,6 +25,7 @@ class DataProcessing:
         self._nlp = English()
         self._nlp.add_pipe("sentencizer")
         self._data = None
+        self.__device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         
     #_______________________________________________________________________________________________#
     
@@ -32,11 +33,17 @@ class DataProcessing:
     #________________________#
     
     # Read chatbot's data from the json file
-    def fetch_data(self, file_path = 'university_data.json',reload = False):
-        if self._data == None or reload == True:
-            with open(file_path, 'r') as f:
-                self._data = json.load(f)
-        return
+    def fetch_data(self, file_path='university_data.json', reload=False):
+        if self._data is None or reload:
+            try:
+                with open(file_path, 'r') as f:
+                    self._data = json.load(f)
+            except FileNotFoundError:
+                print(f"Error: The file {file_path} was not found.")
+                self._data = None
+            except json.JSONDecodeError:
+                print("Error: Failed to decode JSON from the file.")
+                self._data = None
         
     # Create embeddings for the data
     def create_data_embeddings(self, data):
@@ -45,7 +52,9 @@ class DataProcessing:
         for category in self._data['categories']:
             for entry in category['entries']:
                 question = entry['question']
-                embeddings.append(self._embedding_model.encode(question, convert_to_tensor=True))
+                embedding = self._embedding_model.encode(question, convert_to_tensor=True)
+                embedding = embedding.to(self.__device)  # Move embedding to the desired device
+                embeddings.append(embedding)
         self._data_embeddings = embeddings
     
     #_______________________________________________________________________________________________#
@@ -55,16 +64,17 @@ class DataProcessing:
     
     # Split the user input to a list sentences to detect different prompts
     def split_input(self, user_input): 
-        questions = list(self._nlp(user_input))
+        doc = self._nlp(user_input)
+        questions = [str(sent) for sent in doc.sents]
         return questions
     
     # Create embedding for the user's input
     def create_user_input_embedding(self, user_input_list ):
         # list of user input embeddings with their same order
-        user_input_embedding = [self.embedding_model.encode(embedding) for embedding in user_input_list]
+        user_input_embedding = [self._embedding_model.encode(embedding, convert_to_tensor=True) for embedding in user_input_list]
         return user_input_embedding
     
-    def process_questions(self, input_embeddings,threshold = 0.5):
+    def compute_similarity(self, input_embeddings,threshold = 0.5):
         
         # for each embedding in the user's input embeddings
         # compute the cosine similarity between it and the data_embeddings
@@ -73,8 +83,11 @@ class DataProcessing:
         responses = list()
         out_of_context = list()
         not_found = list()
-        
+
         for input_embedding in input_embeddings:
+            # #Reshape to be a column vector
+            # input_embedding = np.expand_dims(input_embedding, axis=0) if input_embedding.ndim == 1 else input_embedding
+
             cosine_scores = util.pytorch_cos_sim(input_embedding, torch.stack(self._data_embeddings))[0]
             max_score, idx = torch.max(cosine_scores, dim=0)
             if(max_score >= threshold):
@@ -87,9 +100,9 @@ class DataProcessing:
                     idx -= len(category['entries'])
 
                 if not found:
-                    # not_found.append("I couldn't find an exact match for one of your questions.")
-                    not_found.append(category['entries'][idx]['answer'])
+                    not_found.append("I couldn't find an exact match for one of your questions.")
+                    # not_found.append(category['entries'][idx]['answer'])
             else:
-                # out_of_context.append("I'm here to help with university-related questions. For information on other topics, you might want to check online resources or community centers.")
-                out_of_context.append(category['entries'][idx]['answer'])
-            return responses,out_of_context,not_found
+                out_of_context.append("I'm here to help with university-related questions. For information on other topics, you might want to check online resources or community centers.")
+                # out_of_context.append(category['entries'][idx]['answer'])
+        return responses,out_of_context,not_found
