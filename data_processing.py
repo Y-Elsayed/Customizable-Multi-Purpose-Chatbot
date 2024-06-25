@@ -85,9 +85,11 @@ class DataProcessing:
                         found = True
                         break
                     idx -= len(category['entries'])
-                    #continue
+
                 if not found:
-                    not_found.append("I couldn't find an exact match for one of your questions.")
+                    # not_found.append("I couldn't find an exact match for one of your questions.")
+                    not_found.append(category['entries'][idx]['answer'])
             else:
-                out_of_context.append("I'm here to help with university-related questions. For information on other topics, you might want to check online resources or community centers.")
+                # out_of_context.append("I'm here to help with university-related questions. For information on other topics, you might want to check online resources or community centers.")
+                out_of_context.append(category['entries'][idx]['answer'])
             return responses,out_of_context,not_found
