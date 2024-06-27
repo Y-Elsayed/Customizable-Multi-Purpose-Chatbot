@@ -2,13 +2,16 @@ from typing import Any
 from transformers import AutoModelForCausalLM, AutoTokenizer
 class Chatbot : 
     
-    #Attributes
+    ### Attributes ###
+    # _______________#
     _use_llm : bool
     _model_name : str
     _llm_model : AutoModelForCausalLM
     _llm_tokenizer : AutoTokenizer
-   #The Constructor
-     # Constructor
+    # _______________________________________________________________________________________________#
+    
+    ### The Constructor ###
+    #____________________#
     def __init__(self, use_llm=False, model_name='gpt2'):
         self._use_llm = use_llm
         self._model_name = model_name
@@ -19,7 +22,10 @@ class Chatbot :
         """Initialize the language model and tokenizer."""
         self._llm_model = AutoModelForCausalLM.from_pretrained(self._model_name)
         self._llm_tokenizer = AutoTokenizer.from_pretrained(self._model_name)
-
+        
+    # _______________________________________________________________________________________________#
+    
+    ### Setters and Getters ###
     def __setattr__(self, name, value):
         if name == '_use_llm':
             if value:
@@ -61,12 +67,15 @@ class Chatbot :
             # Re-initialize the model and tokenizer if the model name changes
             self._initialize_llm()
         
+    # _______________________________________________________________________________________________#
         
-        
-    # Prompt
+    ### Output generation Methods ###
+    #______________________________#
+    
     def combine_responses(responses):
         return " ".join(responses)
 
+    # Needs some work yet #
     def prepare_prompt(query= "Hi", responses = "Hello there, I am here to help you"):
         prompt = (
             "You are a helpful and knowledgeable chatbot for a university. Answer the following query based on the provided information.\n\n"
@@ -78,7 +87,7 @@ class Chatbot :
         return prompt.format(query, combined_responses)
     
     
-
+    # Needs some work yet #
     def generate_response(self,query = "", responses = []):
         result = ""
         if not self._use_llm:

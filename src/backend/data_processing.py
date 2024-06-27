@@ -20,7 +20,8 @@ class DataProcessing:
     __device: str
     # _______________________________________________________________________________________________#
 
-    # The Constructor
+    ### The Constructor ###
+    #____________________#
     def __init__(self, embedding_model="all-MiniLM-L6-v2"):
         self._embedding_model = SentenceTransformer(embedding_model)
         self._nlp = English()
@@ -30,8 +31,8 @@ class DataProcessing:
 
     # _______________________________________________________________________________________________#
 
-    ### Data preprocessing ###
-    # ________________________#
+    ### Data preprocessing methods ###
+    # ______________________________#
 
     # Read chatbot's data from the json file
     def fetch_data(self, file_path="university_data.json", reload=False):
@@ -64,8 +65,8 @@ class DataProcessing:
 
     # _______________________________________________________________________________________________#
 
-    ### User Input Processing ###
-    # ________________________#
+    ### User Input Processing methods ###
+    # _________________________________#
 
     # Split the user input to a list sentences to detect different prompts
     def split_input(self, user_input):
