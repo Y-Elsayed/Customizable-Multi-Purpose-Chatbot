@@ -67,7 +67,7 @@ class Chatbot :
     def combine_responses(responses):
         return " ".join(responses)
 
-    def prepare_prompt(query, responses):
+    def prepare_prompt(query= "Hi", responses = "Hello there, I am here to help you"):
         prompt = (
             "You are a helpful and knowledgeable chatbot for a university. Answer the following query based on the provided information.\n\n"
             "Query: {}\n\n"
@@ -94,6 +94,8 @@ class Chatbot :
         #     inputs = gpt_tokenizer.encode(prompt, return_tensors="pt")
         #     outputs = gpt_model.generate(inputs, max_length=300, num_return_sequences=1)
         #     return gpt_tokenizer.decode(outputs[0], skip_special_tokens=True)
+        
+        print(result)
         return result
     
     #
