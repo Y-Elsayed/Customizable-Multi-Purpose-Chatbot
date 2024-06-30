@@ -9,3 +9,4 @@
 - Find a compact LLM
 - Collect data
 - Understand the LLM generation
+- store in the config the file paths
