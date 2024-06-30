@@ -3,12 +3,13 @@ import os
 
 class Database:
     
-    def __init__(self, db_name='database.sqlite', check_connection = True):
+    def __init__(self, db_name='chatbot_database.sqlite', check_connection = True):
+        
         # Get the path to the current directory where the script is located
         current_dir = os.path.dirname(os.path.abspath(__file__))
         
         # Construct the path to the database file in the data folder
-        self.db_path = os.path.join(current_dir, f'../../data/{db_name}')
+        self.db_path = os.path(f'../../data/{db_name}')
         
         # Connect to the SQLite database
         self.connection = sqlite3.connect(self.db_path)

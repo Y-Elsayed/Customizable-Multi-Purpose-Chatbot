@@ -1,4 +1,3 @@
-from typing import Any
 from transformers import AutoModelForCausalLM, AutoTokenizer
 class Chatbot : 
     

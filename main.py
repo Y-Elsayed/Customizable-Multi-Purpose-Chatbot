@@ -1,6 +1,9 @@
-from backend.data_processing import *
-from backend.chatbot import *
+from src.backend.data_processing import *
+from src.backend.chatbot import *
+from scripts.initialize import *
 
+
+initialize()
 data_processing = DataProcessing()
 chatbot = Chatbot()
 
@@ -19,7 +22,7 @@ user_inp_embedding = data_processing.create_user_input_embedding(
 )
 
 results_dict = data_processing.compute_similarity(
-    user_input_list=user_inp_list, input_embeddings=user_inp_embedding, threshold=0.4
+    user_input_list=user_inp_list, input_embeddings=user_inp_embedding, threshold=0.5
 )
 # print(responses)
 
