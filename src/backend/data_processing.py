@@ -35,7 +35,7 @@ class DataProcessing:
     # ______________________________#
 
     # Read chatbot's data from the json file
-    def fetch_data(self, file_path="university_data.json", reload=False):
+    def fetch_data(self, file_path="data.json", reload=False):
         if self._data is None or reload:
             try:
                 with open(file_path, "r") as f:
