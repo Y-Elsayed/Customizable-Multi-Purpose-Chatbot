@@ -2,7 +2,8 @@ import sqlite3
 import os
 
 class Database:
-    def __init__(self, db_name='database.sqlite'):
+    
+    def __init__(self, db_name='database.sqlite', check_connection = True):
         # Get the path to the current directory where the script is located
         current_dir = os.path.dirname(os.path.abspath(__file__))
         
@@ -13,7 +14,8 @@ class Database:
         self.connection = sqlite3.connect(self.db_path)
         self.cursor = self.connection.cursor()
 
-        self._check_connection()
+        if check_connection == True:
+            self._check_connection()
 
     def _check_connection(self):
         self.cursor.execute('SELECT SQLITE_VERSION()')

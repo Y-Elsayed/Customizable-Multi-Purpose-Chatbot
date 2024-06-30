@@ -3,7 +3,7 @@ from sentence_transformers import SentenceTransformer, util
 from pydantic import BaseModel
 from spacy.lang.en import English
 import torch
-import numpy as np
+import os
 
 
 class Query(BaseModel):
@@ -13,11 +13,11 @@ class Query(BaseModel):
 class DataProcessing:
     ### Attributes ###
     # _______________#
-    _embedding_model: SentenceTransformer
-    _nlp: English
-    _data: json
-    _data_embeddings: list
-    __device: str
+    # _embedding_model: SentenceTransformer
+    # _nlp: English
+    # _data: json
+    # _data_embeddings: list
+    # __device: str
     # _______________________________________________________________________________________________#
 
     ### The Constructor ###
@@ -35,8 +35,12 @@ class DataProcessing:
     # ______________________________#
 
     # Read chatbot's data from the json file
-    def fetch_data(self, file_path="data.json", reload=False):
+    def fetch_data(self, file_name="data.json", reload=False):
         if self._data is None or reload:
+            # Get the path to the current directory where the script is located
+            current_dir = os.path.dirname(os.path.abspath(__file__))
+            # Construct the path to the data file in the data folder
+            file_path = os.path.join(current_dir, f'../../data/{file_name}')
             try:
                 with open(file_path, "r") as f:
                     self._data = json.load(f)
@@ -46,6 +50,7 @@ class DataProcessing:
             except json.JSONDecodeError:
                 print("Error: Failed to decode JSON from the file.")
                 self._data = None
+        reload = False
 
     # Create embeddings for the data
     def create_data_embeddings(self, data):

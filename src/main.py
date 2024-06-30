@@ -1,5 +1,5 @@
-from src.backend.data_processing import *
-from src.backend.chatbot import *
+from backend.data_processing import *
+from backend.chatbot import *
 
 data_processing = DataProcessing()
 chatbot = Chatbot()
