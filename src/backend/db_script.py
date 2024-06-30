@@ -36,26 +36,3 @@ class Database:
 
     def close(self):
         self.connection.close()
-
-# Example usage
-if __name__ == "__main__":
-    db = Database('example_database.sqlite')
-    
-    # Example: Creating a table
-    db.execute_query('''
-    CREATE TABLE IF NOT EXISTS users (
-        id INTEGER PRIMARY KEY,
-        name TEXT NOT NULL,
-        age INTEGER
-    )
-    ''')
-
-    # Example: Inserting data
-    db.execute_query('INSERT INTO users (name, age) VALUES (?, ?)', ('Alice', 22))
-
-    # Example: Fetching data
-    users = db.fetch_all('SELECT * FROM users')
-    print(users)
-
-    # Close the database connection when done
-    db.close()
