@@ -1,5 +1,5 @@
-from src.backend.data_processing import *
-from src.backend.chatbot import *
+from src.backend.models.data_processing import *
+from src.backend.models.chatbot import *
 from scripts.initialize import *
 
 
