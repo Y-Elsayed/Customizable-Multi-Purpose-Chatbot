@@ -39,7 +39,7 @@ class DatabaseController:
             data_by_category[category].append({"question": question, "answer": answer})
         return data_by_category
 
-    def export_data_to_json(self, data_by_category={}, file_name="data.json"):
+    def export_data_to_json(self, data_by_category):
         data_to_json = {"categories": []}
         for k, v in data_by_category:
             temp_dict = {"name": k, "entries": []}
