@@ -10,3 +10,9 @@
 - Collect data
 - Understand the LLM generation
 - store in the config the file paths
+
+
+
+## The main controller file will:
+ - do all the backend logic and handle all the reads and writes in files using the file handler in the
+ utils file
