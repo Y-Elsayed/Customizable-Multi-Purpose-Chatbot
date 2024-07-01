@@ -1,5 +1,6 @@
 import json
 
+
 class DatabaseController:
     def __init__(self, database):
         self.db = database
@@ -22,6 +23,14 @@ class DatabaseController:
                 )
             """
         )
+
+    def clear_tables(self):
+        self.db.execute_query("DELETE FROM Category;")
+        self.db.execute_query("DELETE FROM FAQ;")
+
+    def delete_tables(self):
+        self.db.execute_query("DROP TABLE IF EXISTS Category;")
+        self.db.execute_query("DROP TABLE IF EXISTS FAQ;")
 
     def fetch_database(self):
         query = """SELECT category, question, answer
@@ -47,9 +56,13 @@ class DatabaseController:
                 temp_dict["entries"].append(
                     {"question": entry["questions"], "answer": entry["answer"]}
                 )
-            data_to_json['categories'].append(temp_dict)
-            
+            data_to_json["categories"].append(temp_dict)
+
         json_data = json.dumps(data_to_json)
         return json_data
 
-
+    def fetch_and_export_data(self):
+        rows = self.fetch_database()
+        organized_data = self.organize_by_category(rows)
+        json_data = self.export_data_to_json(organized_data)
+        return json_data

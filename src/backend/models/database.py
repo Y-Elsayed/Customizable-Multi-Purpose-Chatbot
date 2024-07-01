@@ -1,25 +1,25 @@
 import sqlite3
 import os
 
+
 class Database:
-    
-    def __init__(self, db_name='chatbot_database.sqlite', check_connection=True):
+    def __init__(self, db_name="chatbot_database.sqlite", check_connection=True):
         current_dir = os.path.dirname(os.path.abspath(__file__))
-        self.db_path = os.path.join(current_dir, f'../../data/{db_name}')
-        
+        self.db_path = os.path.join(current_dir, f"../../data/{db_name}")
+
         try:
             self.connection = sqlite3.connect(self.db_path)
             self.cursor = self.connection.cursor()
-            
+
             if check_connection:
                 self._check_connection()
-        
+
         except sqlite3.Error as e:
             print(f"Error connecting to SQLite database: {e}")
             raise
 
     def _check_connection(self):
-        self.cursor.execute('SELECT SQLITE_VERSION()')
+        self.cursor.execute("SELECT SQLITE_VERSION()")
         data = self.cursor.fetchone()
         print(f"SQLite version: {data}")
 
