@@ -49,7 +49,7 @@ class Chatbot :
             if not self._llm_model or not self._llm_tokenizer:
                 self._initialize_llm()
         else:
-            # Optionally clear the model and tokenizer if setting use_llm to False
+            # Clear the model and tokenizer if setting use_llm to False
             self._llm_model = None
             self._llm_tokenizer = None
 
@@ -68,23 +68,8 @@ class Chatbot :
         
     # _______________________________________________________________________________________________#
         
-    ### Output generation Methods ###
+    ### Output generation###
     #______________________________#
-    
-    def combine_responses(responses):
-        return " ".join(responses)
-
-    # Needs some work yet #
-    def prepare_prompt(query= "Hi", responses = "Hello there, I am here to help you"):
-        prompt = (
-            "You are a helpful and knowledgeable chatbot for a university. Answer the following query based on the provided information.\n\n"
-            "Query: {}\n\n"
-            "Relevant Information:\n{}\n\n"
-            "Provide a detailed and polite response to the query above."
-        )
-        combined_responses = "\n".join(responses)
-        return prompt.format(query, combined_responses)
-    
     
     # Needs some work yet #
     def generate_response(self,query = "", responses = []):
@@ -103,7 +88,6 @@ class Chatbot :
         #     outputs = gpt_model.generate(inputs, max_length=300, num_return_sequences=1)
         #     return gpt_tokenizer.decode(outputs[0], skip_special_tokens=True)
         
-        print(result)
         return result
     
     #
