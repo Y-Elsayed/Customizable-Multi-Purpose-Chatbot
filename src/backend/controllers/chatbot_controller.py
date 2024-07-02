@@ -11,7 +11,7 @@ class ChatbotController:
     # in some kind of way to be able to change according
     # to the chatbot's functionallity #
     
-    def prepare_prompt(query="", responses="Hello there, I am here to help you"):
+    def prepare_prompt(query="Hi", responses="Hello there, I am here to help you"):
         prompt = (
             "You are a helpful and knowledgeable chatbot for a university. Answer the following query based on the provided information.\n\n"
             "Query: {}\n\n"
