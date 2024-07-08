@@ -3,7 +3,6 @@ from sentence_transformers import SentenceTransformer, util
 from pydantic import BaseModel
 from spacy.lang.en import English
 import torch
-import os
 
 
 class Query(BaseModel):
@@ -35,12 +34,13 @@ class DataProcessing:
     # ______________________________#
 
     # Read chatbot's data from the json file
-    def fetch_data(self, file_name="data.json", reload=False):
+    def fetch_data(self, file_path="data.json", reload=False):
         if self._data is None or reload:
-            # Get the path to the current directory where the script is located
-            current_dir = os.path.dirname(os.path.abspath(__file__))
-            # Construct the path to the data file in the data folder
-            file_path = os.path.join(current_dir, f'../../data/{file_name}')
+            # # Get the path to the current directory where the script is located
+            # current_dir = os.path.dirname(os.path.abspath(__file__))
+            # # Construct the path to the data file in the data folder
+            # file_path = os.path.join(current_dir, f'../../data/{file_name}')
+            # print(f" file path : {file_path}")
             try:
                 with open(file_path, "r") as f:
                     self._data = json.load(f)

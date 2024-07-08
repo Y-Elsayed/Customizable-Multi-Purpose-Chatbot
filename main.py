@@ -4,12 +4,14 @@ from scripts.initialize import *
 
 
 initialize()
+config = load_config()
+
 data_processing = DataProcessing()
 chatbot = Chatbot()
 
 
-university_data = data_processing.fetch_data()
-embeddings = data_processing.create_data_embeddings(university_data)
+data_processing.fetch_data(file_path=config["data_json_path"])
+data_processing.create_data_embeddings()
 
 # TEST CASE
 user_inp = "I was wondering what are the majors that are offered by the university. Also, are there any scholarships offered?."
@@ -27,4 +29,4 @@ results_dict = data_processing.compute_similarity(
 # print(responses)
 
 results = chatbot.generate_response(responses=results_dict["responses"])
-# print(results)
+print(results)

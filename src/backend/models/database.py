@@ -3,10 +3,10 @@ import os
 
 
 class Database:
-    def __init__(self, db_name="chatbot_database.sqlite", check_connection=True):
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-        self.db_path = os.path.join(current_dir, f"../../data/{db_name}")
-
+    def __init__(self, db_path, check_connection=True):
+        # current_dir = os.path.dirname(os.path.abspath(__file__))
+        # self.db_path = os.path.join(current_dir, f"../../data/{db_name}")
+        self.db_path = db_path
         try:
             self.connection = sqlite3.connect(self.db_path)
             self.cursor = self.connection.cursor()
