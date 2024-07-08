@@ -1,11 +1,11 @@
-import src.backend.models.database as database
+from ..models.database import Database
 import json
 
 
 class DatabaseController:
     def __init__(self, config):
         self.config = config
-        self.db = database.Database(db_path=config["database_path"],check_connection=True)
+        self.db = Database(db_path=config["database_path"], check_connection=True)
 
     def create_tables(self):
         self.db.execute_query(
