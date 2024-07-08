@@ -1,9 +1,10 @@
-
+import src.backend.models.chatbot as chatbot
 
 class ChatbotController:
 
-    def __init__(self, chatbot):
-        self.chatbot = chatbot
+    def __init__(self):
+        self.chatbot = chatbot.Chatbot()
+        
 
 
     # Needs some work yet.

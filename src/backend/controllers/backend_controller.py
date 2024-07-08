@@ -8,15 +8,9 @@ class BackendController:
 
 
     def __init__(self):
-        
-        
-        self.chatbot = chatbot.Chatbot()
-        self.data_processing = data_processing.DataProcessing()
-        self.database = database.Database()
-
-        self.chatbot_controller = chatbot_controller.ChatbotController(self.chatbot)
-        self.chatbot_controller = data_processing_controller.DataProcessingController(self.data_processing)
-        self.chatbot_controller = database_controller.DatabaseController(self.database)
+        self.chatbot_controller = chatbot_controller.ChatbotController()
+        self.chatbot_controller = data_processing_controller.DataProcessingController()
+        self.chatbot_controller = database_controller.DatabaseController()
 
     def initialize_environment(self):
         initialize()

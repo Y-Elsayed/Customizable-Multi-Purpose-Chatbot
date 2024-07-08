@@ -1,7 +1,9 @@
+import src.backend.models.data_processing as data_processing
+
 class DataProcessingController:
 
-    def __init__(self, data_processing):
-        self.data_processing = data_processing
+    def __init__(self):
+        self.data_processing = data_processing.DataProcessing()
 
     def load_data(self, file="data.json"):
         if self.data_processing.fetch_data(file_name=file):

@@ -1,9 +1,10 @@
+import src.backend.models.database as database
 import json
 
 
 class DatabaseController:
-    def __init__(self, database):
-        self.db = database
+    def __init__(self):
+        self.db = database.Database()
 
     def create_tables(self):
         self.db.execute_query(
