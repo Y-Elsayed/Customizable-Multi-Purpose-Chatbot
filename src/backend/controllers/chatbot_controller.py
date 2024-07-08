@@ -2,7 +2,8 @@ import src.backend.models.chatbot as chatbot
 
 class ChatbotController:
 
-    def __init__(self):
+    def __init__(self,config):
+        self.config = config
         self.chatbot = chatbot.Chatbot()
         
 

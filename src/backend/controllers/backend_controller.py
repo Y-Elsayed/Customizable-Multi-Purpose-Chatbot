@@ -8,6 +8,8 @@ class BackendController:
 
 
     def __init__(self):
+        self.initialize_environment()
+        
         self.chatbot_controller = chatbot_controller.ChatbotController()
         self.chatbot_controller = data_processing_controller.DataProcessingController()
         self.chatbot_controller = database_controller.DatabaseController()

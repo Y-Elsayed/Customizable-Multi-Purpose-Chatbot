@@ -2,15 +2,16 @@ import src.backend.models.data_processing as data_processing
 
 class DataProcessingController:
 
-    def __init__(self):
+    def __init__(self, config):
+        self.config = config
         self.data_processing = data_processing.DataProcessing()
 
-    def load_data(self, file="data.json"):
-        if self.data_processing.fetch_data(file_name=file):
+    def load_data(self):
+        if self.data_processing.fetch_data(file_path= self.config["data_json_path"]):
             self.create_data_embeddings()
 
-    def reload_data(self, file="data.json"):
-        self.data_processing.fetch_data(file_name=file, reload=True)
+    def reload_data(self):
+        self.data_processing.fetch_data(file_path= self.config["data_json_path"], reload= True)
         self.create_data_embeddings()
 
 

@@ -34,7 +34,7 @@ class DataProcessing:
     # ______________________________#
 
     # Read chatbot's data from the json file
-    def fetch_data(self, file_path="data.json", reload=False):
+    def fetch_data(self, file_path, reload=False):
         if self._data is None or reload:
             # # Get the path to the current directory where the script is located
             # current_dir = os.path.dirname(os.path.abspath(__file__))

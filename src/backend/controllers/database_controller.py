@@ -3,8 +3,9 @@ import json
 
 
 class DatabaseController:
-    def __init__(self):
-        self.db = database.Database()
+    def __init__(self, config):
+        self.config = config
+        self.db = database.Database(db_path=config["database_path"],check_connection=True)
 
     def create_tables(self):
         self.db.execute_query(

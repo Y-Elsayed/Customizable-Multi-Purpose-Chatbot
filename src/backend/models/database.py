@@ -3,7 +3,7 @@ import sqlite3
 
 
 class Database:
-    def __init__(self, db_path, check_connection=True):
+    def __init__(self, db_path,check_connection=False):
         self.db_path = db_path
         try:
             self.connection = sqlite3.connect(self.db_path)
