@@ -9,7 +9,7 @@ class DataProcessingController:
 
     def load_data(self):
         if self.data_processing.fetch_data(file_path=self.config["data_json_path"]):
-            self.create_data_embeddings()
+            self.data_processing.create_data_embeddings()
 
     def reload_data(self):
         self.data_processing.fetch_data(

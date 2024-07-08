@@ -57,7 +57,7 @@ class DataProcessing:
 
     # Create embeddings for the data
     def create_data_embeddings(self):
-        self.fetch_data()
+        # self.fetch_data()
         embeddings = []
         for category in self._data["categories"]:
             for entry in category["entries"]:
