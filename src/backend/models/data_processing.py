@@ -50,10 +50,13 @@ class DataProcessing:
             except json.JSONDecodeError:
                 print("Error: Failed to decode JSON from the file.")
                 self._data = None
-        reload = False
+        else:
+            return False
+        # reload = False
+        return True
 
     # Create embeddings for the data
-    def create_data_embeddings(self, data):
+    def create_data_embeddings(self):
         self.fetch_data()
         embeddings = []
         for category in self._data["categories"]:
@@ -88,7 +91,7 @@ class DataProcessing:
         ]
         return user_input_embedding
 
-    def compute_similarity(self, user_input_list, input_embeddings, threshold=0.5):
+    def compute_similarity(self, user_input_list, input_embeddings, threshold=0.6):
 
         # for each embedding in the user's input embeddings
         # compute the cosine similarity between it and the data_embeddings
