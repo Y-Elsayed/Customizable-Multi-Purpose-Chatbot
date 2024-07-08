@@ -62,6 +62,3 @@ def initialize(data_json_name="data.json", database_name="chatbot_database.sqlit
 
     # Save updated config back to file
     save_config(config_json)
-
-
-initialize()
