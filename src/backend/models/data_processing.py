@@ -20,7 +20,7 @@ class DataProcessing:
     # _______________________________________________________________________________________________#
 
     ### The Constructor ###
-    #____________________#
+    # ____________________#
     def __init__(self, embedding_model="all-MiniLM-L6-v2"):
         self._embedding_model = SentenceTransformer(embedding_model)
         self._nlp = English()
@@ -63,7 +63,7 @@ class DataProcessing:
             for entry in category["entries"]:
                 question = entry["question"]
                 embedding = self._embedding_model.encode(
-                    question, convert_to_tensor=True
+                    question.lower(), convert_to_tensor=True
                 )
                 embedding = embedding.to(
                     self.__device
@@ -79,14 +79,14 @@ class DataProcessing:
     # Split the user input to a list sentences to detect different prompts
     def split_input(self, user_input):
         doc = self._nlp(user_input)
-        questions = [str(sent) for sent in doc.sents]
+        questions = [str(sent).replace('\n',' ').strip() for sent in doc.sents]
         return questions
 
     # Create embedding for the user's input
     def create_user_input_embedding(self, user_input_list):
         # list of user input embeddings with their same order
         user_input_embedding = [
-            self._embedding_model.encode(embedding, convert_to_tensor=True)
+            self._embedding_model.encode(embedding.lower(), convert_to_tensor=True)
             for embedding in user_input_list
         ]
         return user_input_embedding
@@ -125,7 +125,7 @@ class DataProcessing:
                 # out_of_context.append("I'm here to help with university-related questions. For information on other topics, you might want to check online resources or community centers.")
                 out_of_context.append(user_input_list[i])
             i = i + 1
-            
+
         return {
             "responses": responses,
             "not_found": not_found,

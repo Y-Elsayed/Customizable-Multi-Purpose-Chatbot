@@ -56,13 +56,30 @@ class Chatbot:
     # ______________________________#
 
     # Needs some work yet #
-    def generate_response(self, query="", responses=[]):
+    # query parameter will be used with the LLM
+    def generate_response(self, responses, query=""):
         result = ""
+        answers = responses.get("responses")
+        no_answers = responses.get("out_of_context")
+        not_found = responses.get("not_found")
+
         if not self._use_llm:
             # iterate over the responses and display them
             # print(responses)
-            for i in range(1, len(responses) + 1):
-                result += f"{i}. {responses[i-1]}\n"
+            for i in range(1, len(answers) + 1):
+                result += f"{i}. {answers[i-1]}\n"
+
+            # temp to test:
+            result += "\nNo Answers for:\n"
+            for i in range(1, len(no_answers) + 1):
+                result += f"- {no_answers[i-1]}\n"
+            
+            result += "\nNot Found:\n"
+            for i in range(1, len(not_found) + 1):
+                result += f"- {not_found[i-1]}\n"
+                
+                
+            
         # else:
         #     inputs = self._llm_tokenizer(prompt, return_tensors='pt')
         #     outputs = self._llm_model.generate(inputs['input_ids'], max_length=max_length, num_return_sequences=1)

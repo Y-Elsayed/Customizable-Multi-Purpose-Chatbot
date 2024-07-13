@@ -28,5 +28,5 @@ class ChatbotController:
         if model_name != self.chatbot.model_name:
             self.chatbot.model_name = model_name
 
-    def generate_response(self, query, responses):
-        return self.chatbot.generate_response(query, responses)
+    def generate_response(self, responses, query=""):
+        return self.chatbot.generate_response(responses=responses, query=query)
