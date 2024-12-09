@@ -4,8 +4,12 @@ import src.backend.controllers.backend_controller as bc
 backend = bc.BackendController(load_data=False)
 
 
-user_inp = """I was wondering what are the majors that are offered by the university. Also, are there any scholarships offered?
+user_inp = """Can you tell me which majors are available at the university and if they offer any scholarships?
+What academic programs does the university provide, and do they have scholarships?
+Are there any scholarships available at the university, and what majors can I choose from?
+What are the available courses of study at the university, and are there any scholarship opportunities?
+I'm interested in knowing the university's offered majors and if there are any scholarships that I can apply for.
 I would also like to know how to swim
-Would you tell me how to paint my walls? plzzzz?
+Would you also tell me how to paint my walls? plzzzz?
 """
 print(backend.process_input_and_generate_response(user_inp=user_inp))
