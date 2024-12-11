@@ -13,7 +13,7 @@ class Chatbot:
 
     ### The Constructor ###
     # ____________________#
-    def __init__(self, use_llm=False, model_name="gpt2"):
+    def __init__(self, use_llm=False, model_name=None):
         self._use_llm = use_llm
         self._model_name = model_name
         # Initialize model and tokenizer if the use_llm flag is set to true
@@ -21,8 +21,9 @@ class Chatbot:
 
     def _initialize_llm(self):
         """Initialize the language model and tokenizer."""
-        self._llm_model = AutoModelForCausalLM.from_pretrained(self._model_name)
+        self._llm_model = AutoModelForCausalLM.from_pretrained(self._model_name, device_map="auto")
         self._llm_tokenizer = AutoTokenizer.from_pretrained(self._model_name)
+        self._llm_model.eval()
 
     # _______________________________________________________________________________________________#
 
@@ -54,10 +55,21 @@ class Chatbot:
 
     ### Output generation###
     # ______________________________#
+    def prepare_prompt(self, query="", responses="Hello there, I am here to help you"):
+        prompt = (
+            "You are a polite and professional chatbot. Your task is to rephrase the provided response to directly and kindly answer the following query without altering the original meaning:\n\n"
+            "Query: {}\n\n"
+            "Response to Rephrase: {}\n\n"
+            "Provide a rephrased response tailored to the query above."
+        )
+        return prompt.format(query, responses)
+
+
+
 
     # Needs some work yet #
-    # query parameter will be used with the LLM
-    def generate_response(self, responses, query=""):
+    # query parameter will be used for the LLM
+    def generate_response(self, responses, query): 
         result = ""
         answers = responses.get("responses")
         no_answers = responses.get("out_of_context")
@@ -76,19 +88,12 @@ class Chatbot:
             
             result += "\nNot Found:\n"
             for i in range(1, len(not_found) + 1):
-                result += f"- {not_found[i-1]}\n"
+                result += f"- {not_found[i-1]}\n"                
                 
-                
-            
-        # else:
-        #     inputs = self._llm_tokenizer(prompt, return_tensors='pt')
-        #     outputs = self._llm_model.generate(inputs['input_ids'], max_length=max_length, num_return_sequences=1)
-        #     return self._llm_tokenizer.decode(outputs[0], skip_special_tokens=True)
-        #     prompt = self.prepare_prompt(query, responses)
-        #     inputs = gpt_tokenizer.encode(prompt, return_tensors="pt")
-        #     outputs = gpt_model.generate(inputs, max_length=300, num_return_sequences=1)
-        #     return gpt_tokenizer.decode(outputs[0], skip_special_tokens=True)
-
+        else:
+            prompt = self.prepare_prompt(query = query, responses=answers[0]) # I put this just for testing later I will iterate over responses to generate different responses each time.
+            inputs = self._llm_tokenizer(prompt, return_tensors='pt')
+            outputs = self._llm_model.generate(input_ids=inputs['input_ids'],attention_mask=inputs.get('attention_mask'),max_length=512,num_return_sequences=1, do_sample=True,  # Enable sampling for variability
+            pad_token_id=self._llm_tokenizer.eos_token_id)
+            result= self._llm_tokenizer.decode(outputs[0], skip_special_tokens=True)
         return result
-
-    #

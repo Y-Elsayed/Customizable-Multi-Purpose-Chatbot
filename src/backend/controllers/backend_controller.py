@@ -6,9 +6,9 @@ from scripts.initialize import *
 
 class BackendController:
 
-    def __init__(self, load_data=True):
+    def __init__(self, load_data=True,use_llm = False,model_name = None):
         self.__initialize_environment()
-        self.__chatbot_controller = ChatbotController(self._config)
+        self.__chatbot_controller = ChatbotController(self._config,use_llm=use_llm,model_name=model_name)
         self.__data_processing_controller = DataProcessingController(self._config)
         self.__database_controller = DatabaseController(self._config)
         self.__database_controller.create_tables()
@@ -29,7 +29,7 @@ class BackendController:
         result = self.__data_processing_controller.process_and_search_input(
             user_inp=user_inp
         )
-        chatbot_response = self.__chatbot_controller.generate_response(responses=result)
+        chatbot_response = self.__chatbot_controller.generate_response(responses=result,query=user_inp) # Future Improvement: Refine the user input using an LLM
         # Future improvement: Maybe check the responses whether they are appropriate or not
         
         return chatbot_response
