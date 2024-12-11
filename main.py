@@ -1,7 +1,7 @@
-import src.backend.controllers.backend_controller as bc
+import src.backend.services.backend_service as bc
 
 
-backend = bc.BackendController(load_data=False,use_llm=True,model_name = "tiiuae/falcon-7b")
+backend = bc.BackendService(load_data=False,use_llm=False,model_name = "GPT2")
 
 
 user_inp = """Can you tell me which majors are available at the university and if they offer any scholarships?

@@ -2,7 +2,7 @@ from ..models.database import Database
 import json
 
 
-class DatabaseController:
+class DatabaseService:
     def __init__(self, config):
         self.config = config
         self.db = Database(db_path=config["database_path"], check_connection=True)

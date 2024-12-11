@@ -1,7 +1,7 @@
 from ..models.data_processing import DataProcessing
 
 
-class DataProcessingController:
+class DataProcessingService:
 
     def __init__(self, config):
         self.config = config

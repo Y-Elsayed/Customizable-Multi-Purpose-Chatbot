@@ -56,6 +56,7 @@ class Chatbot:
     ### Output generation###
     # ______________________________#
     def prepare_prompt(self, query="", responses="Hello there, I am here to help you"):
+        # The prompt will probably change according to the chatbot's field. Should be able to change it from the UI of the admin
         prompt = (
             "You are a polite and professional chatbot. Your task is to rephrase the provided response to directly and kindly answer the following query without altering the original meaning:\n\n"
             "Query: {}\n\n"

@@ -2,7 +2,7 @@
 from ..models.chatbot import Chatbot
 
 
-class ChatbotController:
+class ChatbotService:
 
     def __init__(self, config,use_llm = False,model_name = None):
         self.config = config
@@ -18,5 +18,5 @@ class ChatbotController:
         if model_name != self.chatbot.model_name:
             self.chatbot.model_name = model_name
 
-    def generate_response(self, responses, query=""):
+    def generate_response(self, responses, query):
         return self.chatbot.generate_response(responses=responses, query=query)
