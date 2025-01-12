@@ -36,11 +36,4 @@ The project follows the **MVC (Model-View-Controller)** design pattern:
 
 - **Controller**:
   - The `BackendService` and `ChatbotService` are responsible for managing user input, invoking the appropriate services, and processing responses.
-  
-  
-### Service Layer:
 
-- **BackendService**: Manages interactions between the chatbot service, data processing service, and database.
-- **ChatbotService**: Handles interactions with the chatbot model for generating responses.
-- **DataProcessingService**: Processes incoming user queries, including data fetching and searching relevant information.
-- **DatabaseService**: Manages the database, creating tables, storing, and fetching data for the chatbot.
